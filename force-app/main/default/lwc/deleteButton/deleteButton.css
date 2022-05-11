@@ -1,0 +1,8 @@
+.delete-icon {
+    --sds-c-icon-color-foreground-default: grey;
+    cursor: default;
+}
+.delete-icon:hover {
+    --sds-c-icon-color-foreground-default: rgb(54, 94, 138);
+    cursor: pointer;
+}

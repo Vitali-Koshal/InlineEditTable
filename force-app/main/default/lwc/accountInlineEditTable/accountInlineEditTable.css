@@ -1,0 +1,51 @@
+button {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    background-clip: padding-box;
+    border-radius: .25rem;
+    font-size: 12px;  
+    margin: 6px;
+    padding: 6px 22px;  
+    text-align: center;   
+}
+.button-cancel {
+    color: #0070D2;
+    border: 1px solid #d8dde6;
+    background-color: rgb(255, 255, 255);
+}
+.button-cancel:hover {
+    background-color: rgb(238,238,238);
+}
+.button-save {
+    color: rgb(255, 255, 255);
+    border: 1px solid #d8dde6;
+    background-color: #0070D2;
+}
+.button-save:hover {
+    background-color: rgb(54, 94, 138);
+}
+footer {    
+    position: fixed;
+    bottom: 0;
+    height: 48px;
+    width: 100vw;
+    background: rgb(243,243,243);
+    text-align: center;
+}
+.footer-visible {
+    visibility:visible;
+}
+.footer-not-visible {
+    visibility: hidden;
+}
+.datatable {
+    width: 50vw; 
+}
+.name-сolumn {
+    width: 70vw;
+    background-color: red;
+    font-size: xx-large;
+    text-decoration: underline;
+}

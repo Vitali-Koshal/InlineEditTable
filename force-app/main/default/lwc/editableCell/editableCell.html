@@ -1,0 +1,32 @@
+<template>
+    <table 
+        class='{buttonCell}' 
+        onmouseover={handleMouseOverCell} 
+        onmouseout={handleMouseOutCell} 
+        onblur={handleBlurCell}>
+        <tr>
+            <td>
+                <input 
+                    style={cellWidth}
+                    placeholder={cellValue} 
+                    class={cellStyle} 
+                    disabled={disabled} 
+                    onblur={handleBlur} 
+                    oncomplete={handleRefresh}>
+            </td>
+            <td class={iconVisibility}>
+                <span style='align: right;'>
+                    <lightning-icon 
+                        icon-position='right'
+                        size='xx-small'
+                        icon-name='utility:edit' 
+                        class={editIconStyle}
+                        onclick={handleClick}
+                        onmouseover={handleMouseOverIcon}
+                        onmouseout={handleMouseOutIcon}>
+                    </lightning-icon>
+                </span>
+            </td>
+        </tr>
+    </table>
+</template>

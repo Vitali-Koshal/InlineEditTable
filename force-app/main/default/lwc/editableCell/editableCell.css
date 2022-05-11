@@ -1,0 +1,40 @@
+.cell-style-editable {
+    
+    border-width: 0px; 
+    background-color:  rgb(238, 238, 238);
+    height: 120%;
+}
+.cell-style-not-editable {
+    
+    border-width: 0px; 
+    padding: 0px;
+    margin: 0px;
+    background-color:  rgb(255, 255, 255);
+}
+.cell-style-changed {
+    background-color:  rgb(222, 217, 77);
+    
+    border-width: 0px; 
+}
+.edit-icon {
+    --sds-c-icon-color-foreground-default: grey;
+    cursor: default;
+}
+.edit-icon-hover {
+    --sds-c-icon-color-foreground-default: rgb(35, 118, 204);
+    cursor: pointer;
+}
+.icon-visible {
+    display: block;
+    width: 50px;
+}
+.icon-not-visible {
+    display: none;
+    width: 50px;
+}
+.width-narrow {
+    width: 150px;
+}
+.width-wide {
+    width: 250px;
+}
