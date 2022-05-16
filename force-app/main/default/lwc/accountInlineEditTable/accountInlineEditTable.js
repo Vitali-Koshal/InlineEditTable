@@ -56,7 +56,7 @@ export default class AccountInlineEditTable extends LightningElement {
             })
         }
         if (error) {
-
+            this.message='Data error ' + JSON.stringify(error);
         }
     }
     

@@ -1,18 +1,16 @@
 .cell-style-editable {
-    
     border-width: 0px; 
     background-color:  rgb(238, 238, 238);
     height: 120%;
 }
 .cell-style-not-editable {
-    
     border-width: 0px; 
     padding: 0px;
     margin: 0px;
     background-color:  rgb(255, 255, 255);
 }
 .cell-style-changed {
-    background-color:  rgb(222, 217, 77);
+    background-color:  rgb(250, 255, 189);
     
     border-width: 0px; 
 }

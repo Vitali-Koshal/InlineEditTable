@@ -81,13 +81,18 @@ export default class EditableCell extends LightningElement {
         this.iconClicked = false;
         if (this.cellValue === event.target.value) {
             this.cellStyle = 'cell-style-not-editable';
+            this.template.querySelector('tr').style.backgroundColor = 'rgb(255, 255, 255)';
             const payload = {editCellCurentId: undefined, cellType: undefined};
             publish(this.messageContext, datatableChannel, payload);
             this.hideFooter = true;
+            this.cellEdited = false;
         } else {
             this.cellStyle = 'cell-style-changed';
+            this.cellEdited = true;
             this.currentValue = event.target.value;
             this.hideFooter = false;
+            this.template.querySelector('input').style.backgroundColor = 'rgb(250, 255, 189)';
+            this.template.querySelector('tr').style.backgroundColor = 'rgb(250, 255, 189)';
         }
         const events = new CustomEvent('celledit', {
             composed: true,
@@ -115,9 +120,13 @@ export default class EditableCell extends LightningElement {
         this.currentFieldType = message.cellType;
         if (this.editedRecord === undefined) {
             this.cellStyle = 'cell-style-not-editable';
+            this.template.querySelector('input').style.backgroundColor = 'rgb(255, 255, 255)';
         }
-        if (message.buttonType === 'cancel') {
-            this.template.querySelector('input').value = this.cellValue;
+        if (message.buttonType === 'cancel' || message.buttonType === 'save') {
+            this.template.querySelector('tr').style.backgroundColor = 'rgb(255, 255, 255)';
+            if (message.buttonType === 'cancel') {
+                this.template.querySelector('input').value = this.cellValue;
+            }
         }
     }
 

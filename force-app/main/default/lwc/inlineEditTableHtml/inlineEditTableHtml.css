@@ -1,0 +1,123 @@
+td {
+    padding: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+    border-bottom: 1px solid rgb(201, 201, 201);;
+}
+.td-header {
+    padding: 8px;
+    font-weight: bold;
+    background-color: rgb(238, 238, 238);
+    border-right: 1px solid rgb(201, 201, 201);
+    border-left: 1px solid rgb(238, 238, 238);
+    border-top: 1px solid rgb(238, 238, 238);
+}
+.td-header:hover {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(238, 238, 238);
+}
+.td-data {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+tr:hover .td-data {
+    background-color: rgb(238, 238, 238);
+}
+tr:hover .td-data:hover {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(201, 201, 201); 
+}
+tr:hover input {
+    background-color: rgb(238, 238, 238);
+}
+tr:hover input:hover {
+    background-color: rgb(255, 255, 255);
+}
+td:hover input {
+    background-color: rgb(255, 255, 255);
+}
+td:hover input:focus {
+    background-color: rgb(238, 238, 238);
+}
+td:hover .edit-icon {
+    visibility: visible;
+    --sds-c-icon-color-foreground-default: grey;
+    cursor: default;
+}
+td:hover .edit-icon-blocked {
+    visibility: visible;
+    --sds-c-icon-color-foreground-default: grey;
+    cursor: default;
+}
+td:hover .edit-icon:hover {
+    --sds-c-icon-color-foreground-default: rgb(35, 118, 204);
+    cursor: pointer;
+}
+input {
+    border-width: 0px; 
+    padding: 3px;
+    margin: 0px;
+    background-color: rgb(255, 255, 255);      
+}
+input:focus {
+    background-color: rgb(238, 238, 238);
+}
+.datatable {
+    width: 600px; 
+}
+.delete-icon {
+    --sds-c-icon-color-foreground-default: grey;
+    cursor: default;
+}
+.delete-icon:hover {
+    --sds-c-icon-color-foreground-default: rgb(54, 94, 138);
+    cursor: pointer;
+}
+.edit-icon, .edit-icon-blocked {
+    visibility: hidden;
+}
+button {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    background-clip: padding-box;
+    border-radius: .25rem;
+    font-size: 12px;  
+    margin: 6px;
+    padding: 6px 22px;  
+    text-align: center;   
+}
+.button-cancel {
+    color: #0070D2;
+    border: 1px solid #d8dde6;
+    background-color: rgb(255, 255, 255);
+}
+.button-cancel:hover {
+    background-color: rgb(238,238,238);
+}
+.button-save {
+    color: rgb(255, 255, 255);
+    border: 1px solid #d8dde6;
+    background-color: #0070D2;
+}
+.button-save:hover {
+    background-color: rgb(54, 94, 138);
+}
+footer {    
+    position: fixed;
+    bottom: 0;
+    height: 48px;
+    width: 600px;
+    background: rgb(243,243,243);
+    text-align: center;
+}
+.footer-visible {
+    visibility:visible;
+}
+.footer-not-visible {
+    visibility: hidden;
+}
