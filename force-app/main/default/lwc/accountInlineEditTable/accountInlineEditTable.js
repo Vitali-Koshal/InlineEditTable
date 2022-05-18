@@ -157,8 +157,7 @@ export default class AccountInlineEditTable extends LightningElement {
                 variant: 'success'
             });
             this.dispatchEvent(toastEvent);
-        }
-        catch (e) {
+        } catch (e) {
             const toastEvent = new ShowToastEvent({
                 title: 'Account was not updated',
                 message: e.name + ': ' + e.message,
