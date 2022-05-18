@@ -4,7 +4,7 @@ td {
     padding-right: 5px;
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(255, 255, 255);
-    border-bottom: 1px solid rgb(201, 201, 201);;
+    border-bottom: 1px solid rgb(201, 201, 201);
 }
 .td-header {
     padding: 8px;
@@ -33,13 +33,25 @@ tr:hover .td-data:hover {
 tr:hover input {
     background-color: rgb(238, 238, 238);
 }
+tr:hover select {
+    background-color: rgb(238, 238, 238);
+}
 tr:hover input:hover {
+    background-color: rgb(255, 255, 255);
+}
+tr:hover select:hover {
     background-color: rgb(255, 255, 255);
 }
 td:hover input {
     background-color: rgb(255, 255, 255);
 }
+td:hover select {
+    background-color: rgb(255, 255, 255);
+}
 td:hover input:focus {
+    background-color: rgb(238, 238, 238);
+}
+td:hover select:focus {
     background-color: rgb(238, 238, 238);
 }
 td:hover .edit-icon {
@@ -62,7 +74,16 @@ input {
     margin: 0px;
     background-color: rgb(255, 255, 255);      
 }
+select {
+    border-width: 0px; 
+    padding: 3px;
+    margin: 0px;
+    background-color: rgb(255, 255, 255);      
+}
 input:focus {
+    background-color: rgb(238, 238, 238);
+}
+select:focus {
     background-color: rgb(238, 238, 238);
 }
 .datatable {

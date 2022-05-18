@@ -1,19 +1,19 @@
 <template>
-    <div class='datatable'>{message}
+    <div class="datatable">{message}
         <c-account-custom-datatable 
-            key-field='Id' 
+            key-field="Id" 
             data={records} 
             columns={columns} 
             hide-checkbox-column
             ondeletebuttonclick={deleteButtonAction}
-            oncelledit={handleCellEdit}>
+            oncelledit={handleCellEdit}
+            ondemandpicklist={handleDemandPicklist}>
         </c-account-custom-datatable>
     </div>
     <footer class={footerState}>
         <div>
-            <button type='button' class='button-cancel' onclick={handleCancelButtonClick}>Cancel</button>
-            <button type='button' class='button-save' onclick={handleSaveButtonClick}>Save</button>
-            
+            <button type="button" class="button-cancel" onclick={handleCancelButtonClick}>Cancel</button>
+            <button type="button" class="button-save" onclick={handleSaveButtonClick}>Save</button>
         </div>
     </footer>
 </template>

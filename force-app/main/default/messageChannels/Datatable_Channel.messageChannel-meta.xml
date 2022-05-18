@@ -14,4 +14,8 @@
         <fieldName>cellType</fieldName>
         <description>This is cell type from cell</description>
     </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>picklistSet</fieldName>
+        <description>This is set of all value for Rating</description>
+    </lightningMessageFields>
 </LightningMessageChannel>

@@ -6,6 +6,8 @@ import deleteAccount from '@salesforce/apex/AccountControllerCustom.deleteAccoun
 import updateAccount from '@salesforce/apex/AccountControllerCustom.updateAccount';
 import { publish, MessageContext} from 'lightning/messageService';
 import datatableChannel from '@salesforce/messageChannel/Datatable_Channel__c';
+import { getPicklistValues } from 'lightning/uiObjectInfoApi';
+import Rating from '@salesforce/schema/Account.Rating';
 const COLUMNS = [ 
     {label: 'Name', type: 'customEditCell', initialWidth: 300, editable: 'true', fieldName: 'Name', 
         typeAttributes: {
@@ -15,12 +17,11 @@ const COLUMNS = [
             cellWidth: 'width: 250px;'
         }
     },
-    {label: 'Rating', type: 'customEditCell', initialWidth: 200, editable: 'true', fieldName: 'Rating', 
+    {label: 'Rating', type: 'customPicklist', initialWidth: 200, editable: 'true', fieldName: 'Rating', 
         typeAttributes: {
             cellValue: {fieldName: 'Rating'}, 
             recordId: {fieldName: 'accountId'}, 
             fieldInfo: 'rating', 
-            cellWidth: 'width: 150px;'
         }
     },
     {label: 'Delete', type: 'customButton', fieldName: 'Id', typeAttributes: {recordId: {fieldName: 'accountId'}}}
@@ -29,6 +30,7 @@ const COLUMNS = [
 export default class AccountInlineEditTable extends LightningElement {
     columns = COLUMNS;
     records;
+    message;
     refreshedTable;
     currentId;
     fieldInfo;
@@ -38,9 +40,24 @@ export default class AccountInlineEditTable extends LightningElement {
     addNewElement; // check that array for update doesnt have Id that should be updated
     refreshState;
     footerState = 'footer-not-visible';
+    ratingsSet = new Array();
 
     @wire(MessageContext)
     messageContext;
+
+    @wire(getPicklistValues, { recordTypeId: '012000000000000AAA', fieldApiName: Rating })
+    wiredRating(response) {
+        const{data, error} = response;
+        if (data) {
+            data.values.forEach(element => {
+                this.ratingsSet.push(element.value);
+            })
+        }
+        if (error) {
+            this.message='Data error ' + JSON.stringify(error);
+        }
+    }
+
     @wire(getAccounts, {})
     wiredAccount(response) {
         this.refreshedTable = response;
@@ -71,8 +88,7 @@ export default class AccountInlineEditTable extends LightningElement {
                 variant: 'success'
             });
             this.dispatchEvent(toastEvent);
-        }
-        catch (e) {
+        } catch (e) {
             const toastEvent = new ShowToastEvent({
                 title: 'Account was not deleted',
                 message: e.name + ': ' + e.message,
@@ -159,12 +175,17 @@ export default class AccountInlineEditTable extends LightningElement {
         this.footerState = 'footer-not-visible';
     }
 
+    handleDemandPicklist() {
+        const payload = {picklistSet: this.ratingsSet, editCellCurentId: undefined, buttonType: ''};
+        publish(this.messageContext, datatableChannel, payload);
+    }
+
     refreshData() {
         refreshApex(this.refreshedTable);
     }
 
     sendMessage(value) {
-        const payload = {editCellCurentId: undefined, buttonType: value};
+        const payload = {picklistSet: this.ratingsSet, editCellCurentId: undefined, buttonType: value};
         publish(this.messageContext, datatableChannel, payload);
     }
 }

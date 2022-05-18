@@ -1,61 +1,62 @@
 <template>
-    <div class='datatable'>{message}
+    <div class="datatable">{message}
         <table>
         <tr>
-            <td width='350px' class='td-header'>Name</td>
-            <td width='170px' class='td-header'>Rating</td>
-            <td width='80px' class='td-header'>Delete</td>
+            <td width="350px" class="td-header">Name</td>
+            <td width="170px" class="td-header">Rating</td>
+            <td width="80px" class="td-header">Delete</td>
         </tr>
         </table>
-        <template for:each={records} for:item='account'>
+        <template for:each={records} for:item="account">
             <tr key={account.accountId}>              
-                <td class='td-data' key={account.accountId} width='350px'>
+                <td class="td-data" key={account.accountId} width="350px">
                     <input 
                         data-id={account.accountId}
-                        data-name='name'
-                        style='width: 280px;'
+                        data-name="name"
+                        style="width: 280px;"
                         placeholder={account.name} 
-                        class={cellStyle} 
                         disabled
                         onblur={handleInputBlur}>
                     <lightning-icon 
                         data-recordid={account.accountId}
                         data-recordvalue={account.name}
-                        data-name='name'
-                        size='xx-small'
-                        icon-name='utility:edit' 
+                        data-name="name"
+                        size="xx-small"
+                        icon-name="utility:edit" 
                         class={editIcon}
-                        style='float: right;'
+                        style="float: right;"
                         onclick={handleEditClick}
                         onmouseover={handleMouseOverIcon}>
                     </lightning-icon>                       
                 </td>
-                <td class='td-data' key={account.accountId} width='170px'>
-                    <input 
+                <td class="td-data" key={account.accountId} width="170px">
+                    <select
                         data-id={account.accountId}
-                        data-name='rating'
-                        style='width: 100px;'
-                        placeholder={account.rating} 
-                        class={cellStyle} 
+                        data-name="rating"
+                        data-recordvalue={account.rating}
+                        style="width: 100px;"
                         disabled
-                        onblur={handleInputBlur}>
+                        onchange={handleSelectChange}
+                        onblur={handleSelectBlur}>
+                        <option selected value={account.rating}>{account.rating}</option>
+                    </select>
                     <lightning-icon 
                         data-recordid={account.accountId}
                         data-recordvalue={account.rating}
-                        data-name='rating'
-                        size='xx-small'
-                        icon-name='utility:edit' 
+                        data-name="rating"
+                        size="xx-small"
+                        icon-name="utility:edit" 
                         class={editIcon}
-                        style='float: right;'
-                        onclick={handleEditClick}
+                        style="float: right;"
+                        onclick={handleEditPicklistClick}
                         onmouseover={handleMouseOverIcon}>
                     </lightning-icon>
                 </td>
-                <td class='td-data' key={account.accountId} width='80px'>
+                <td class="td-data" key={account.accountId} width="80px">
                     <lightning-icon 
                         data-recordid={account.accountId}
-                        icon-name='utility:delete' 
-                        class='delete-icon'
+                        icon-name="utility:delete" 
+                        class="delete-icon"
                         onclick={handleClickDelete}>
                     </lightning-icon>
                 </td>
@@ -64,8 +65,8 @@
     </div>
     <footer class={footerState}>
         <div>
-            <button type='button' class='button-cancel' onclick={handleCancelButtonClick}>Cancel</button>
-            <button type='button' class='button-save' onclick={handleSaveButtonClick}>Save</button>
+            <button type="button" class="button-cancel" onclick={handleCancelButtonClick}>Cancel</button>
+            <button type="button" class="button-save" onclick={handleSaveButtonClick}>Save</button>
         </div>
     </footer>
 </template>

@@ -1,20 +1,22 @@
 <template>
     <table 
         onmouseover={handleMouseOverCell} 
-        onmouseout={handleMouseOutCell} 
-        onblur={handleBlurCell}>
+        onmouseout={handleMouseOutCell}>
         <tr>
             <td>
-                <input 
-                    style={cellWidth}
-                    placeholder={cellValue} 
-                    class={cellStyle} 
-                    disabled={disabled} 
-                    onblur={handleBlur} 
-                    oncomplete={handleRefresh}>
+                <select
+                    style="width: 150px;"
+                    class={cellStyle}  
+                    disabled={disabled}
+                    onchange={handleSelectChange}
+                    onblur={handleBlurCell}>
+                    <option selected value={cellValue}>{cellValue}</option>
+                </select>
             </td>
             <td class={iconVisibility}>
                 <lightning-icon 
+                    data-recordid={recordId}
+                    data-recordvalue={cellValue}
                     icon-position="right"
                     size="xx-small"
                     icon-name="utility:edit" 
@@ -24,6 +26,6 @@
                     onmouseout={handleMouseOutIcon}>
                 </lightning-icon>
             </td>
-        </tr>
+        </tr> 
     </table>
 </template>

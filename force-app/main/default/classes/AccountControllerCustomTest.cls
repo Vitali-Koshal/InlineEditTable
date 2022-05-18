@@ -1,8 +1,8 @@
 @isTest
-public with sharing class AccountControllerCustomTest {
+class AccountControllerCustomTest {
     
-    @TestSetup
-    static void makeData(){
+    @testSetup
+    private static void makeData(){
         List<Account> accounts = new List<Account>();
         for(Integer i = 0; i < 5; i++) {
             accounts.add(new Account(Name = 'Account ' + i, Rating = 'Hot'));
@@ -11,21 +11,44 @@ public with sharing class AccountControllerCustomTest {
     }
 
     @isTest 
-    static void getAccounts_getAllAccounts_allAccountsGot() {
+    private static void getAccounts_getAllAccounts_allAccountsGot() {
         List<Account> accounts = [SELECT Id FROM Account];
-        Integer expectedSize = accounts.size();
+        Integer expectedAccountsNumber = accounts.size();
+
         Test.startTest();
-        Integer methodSize = AccountControllerCustom.getAccounts().size();
+        Integer methodAccountsNumber = AccountControllerCustom.getAccounts().size();
         Test.stopTest();
-        System.assertEquals(expectedSize, methodSize, 'getAccounts method doesnt return all records');
+
+        System.assertEquals(expectedAccountsNumber, methodAccountsNumber, 'getAccounts method doesnt return all records');
     }
 
     @isTest 
-    static void getAccounts_getAccountsSortedByName_AccountNotSorted() {
+    private static void getAccounts_getAccounts_ErrorThrown() {
+        Boolean isException = false;
+
+        Test.startTest();
+        List<Account> allAccounts = [SELECT Id FROM Account];
+        delete allAccounts;
+        try {
+            AccountControllerCustom.getAccounts();
+        } catch (Exception e) {
+            if (e.getMessage().contains('Accounts list is empty')) {
+                isException = true;
+            }
+        }
+        Test.stopTest();
+        
+        System.assert(isException, 'Method should thrown an exception');
+    }
+
+    @isTest 
+    private static void getAccounts_getAccountsSortedByName_AccountNotSorted() {
         Boolean sorting = true;
+
         Test.startTest();
         List<Account> accounts = AccountControllerCustom.getAccounts();
         Test.stopTest();
+
         for (Integer i = 0; i < accounts.size() - 1; i++) {
             if(accounts[i].Name > accounts[i+1].Name) {
                 sorting = false;
@@ -35,46 +58,53 @@ public with sharing class AccountControllerCustomTest {
     }
 
     @isTest
-    static void deleteAccount_deleteAccount_accountDeleted() {
+    private static void deleteAccount_deleteAccount_accountDeleted() {
         Account account = [SELECT Id, Name FROM Account WHERE Name = 'Account 1' LIMIT 1];
+        
         Test.startTest();
         AccountControllerCustom.deleteAccount(account.Id);
         Test.stopTest();
+
         List<Account> withDeletedAccounts = [SELECT Id, Name FROM Account WHERE Name = 'Account 1' LIMIT 1];
         System.assertEquals(0, withDeletedAccounts.size(), 'Account was not deleted');
     }
 
     @isTest 
-    static void deleteAccount_deleteNonExistentAccount_operationWithoutError () {
+    private static void deleteAccount_deleteNonExistentAccount_operationWithoutError () {
         Boolean errorMessage = false;
         String message;
+        Account account = [SELECT Id, Name FROM Account WHERE Name = 'Account 1' LIMIT 1];
+        
         Test.startTest();
         try {
             AccountControllerCustom.deleteAccount('WrongId');
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
+            errorMessage = true;
             message = e.getMessage();
         }
+        
         Test.stopTest();
+
         System.assertNotEquals(true, errorMessage, 'There should not be error: ' + message);
     }
 
     @isTest 
-    static void updateAccount_updateAccountName_AccountNameUpdated() {
+    private static void updateAccount_updateAccountName_AccountNameUpdated() {
         Account account = [SELECT Id, Name FROM Account LIMIT 1];
         account.Name = 'New Account';
-        String expectedName = account.Name;
         List<Account> accounts = new List<Account>();
         accounts.add(account);
+
         Test.startTest();
         AccountControllerCustom.updateAccount(accounts);
         Test.stopTest();
+
         Account updatedAccount = [SELECT Id, Name FROM Account WHERE Id = :account.Id LIMIT 1];
-        System.assertEquals(expectedName, updatedAccount.Name, 'Account name was not updated');
+        System.assertEquals(account.Name, updatedAccount.Name, 'Account name was not updated');
     }
 
     @isTest 
-    static void updateAccount_updateAccountNameWithOversizeLength_updateAccountNotHappend() {
+    private static void updateAccount_updateAccountNameWithOversizeLength_updateAccountNotHappend() {
         Account account = [SELECT Id, Name FROM Account LIMIT 1];
         String expectedName = account.Name;
         String longAccountName;
@@ -85,14 +115,15 @@ public with sharing class AccountControllerCustomTest {
         account.Name = longAccountName;
         List<Account> accounts = new List<Account>();
         accounts.add(account);
+
         Test.startTest();
         try {
             AccountControllerCustom.updateAccount(accounts);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
              errorState = true;
         }
         Test.stopTest();
+
         Account updatedAccount = [SELECT Id, Name FROM Account WHERE Id = :account.Id LIMIT 1];
         System.assertEquals(expectedName, updatedAccount.Name, 'Account name should not be updated');
         System.assertNotEquals(false, errorState, 'There should be error message ');
